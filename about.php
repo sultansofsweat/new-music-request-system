@@ -121,7 +121,7 @@
   <h1 style="text-align:center; text-decoration:underline;">About the <?php echo $sysname; ?>Music Request System</h1>
   <h3 style="text-decoration:underline;">Version Information</h3>
   <?php
-	echo ("<p>This MRS is running release <b>" . $verinfo["major"] . "." . $verinfo["minor"] . "</b>, revision <b>" . $verinfo["revision"] . "</b><br>\r\n
+	echo ("<p>This MRS is running release <b>" . $verinfo["major"] . "." . $verinfo["minor"] . "</b>, patch level <b>" . $verinfo["revision"] . "</b><br>\r\n
 	Build code for this release is <b>" . $verinfo["buildcode"] . "</b><br>\r\n
 	This revision was released <b>" . $verinfo["released"] . "</b></p>\r\n");
   ?>
