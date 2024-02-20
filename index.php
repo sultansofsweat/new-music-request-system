@@ -166,7 +166,7 @@
 		echo("!<br>\r\n");
 		if($admin === true)
 		{
-			echo ("<a href=\"logout.php\">Exit Admin Mode</a> | <a href=\"select.php\">Request</a> | <a href=\"admin.php\">Administration</a> | <a href=\"about.php\">About the MRS</a><br>\r\n");
+			echo ("<a href=\"logout.php\">Exit Admin Mode</a> | <a href=\"select.php\">Request</a> | <a href=\"admin-index.php\">Administration</a> | <a href=\"about.php\">About the MRS</a><br>\r\n");
 			echo ("<a href=\"bun.php\">Ban username</a> | <a href=\"vun.php\">View username banlist</a> | <a href=\"bip.php\">Ban IP address</a> | <a href=\"vip.php\">View IP banlist</a> | <a href=\"viewreports.php\">View Post Reports</a><br>\r\n");
 			echo ("Quick view: ");
 			if($posting === true)

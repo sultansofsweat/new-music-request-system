@@ -145,17 +145,18 @@
 	$disabled=false;
     $autoban=0;
 	//Check page reference
+	$ref="index";
 	if(isset($_POST['ref']) && file_exists($_POST['ref'] . ".php"))
 	{
 		$ref=$_POST['ref'];
 	}
-	elseif(isset($_GET['ref']) && file_exists(preg_replace("/[^a-z]/","",$_GET['ref']) . ".php"))
+	elseif(isset($_GET['ref']))
 	{
-		$ref=preg_replace("/[^a-z]/","",$_GET['ref']);
-	}
-	else
-	{
-		$ref="index";
+		$r=preg_replace("/[^a-z\-]/","",$_GET['ref']);
+		if(file_exists($r . ".php"))
+		{
+			$ref=$r;
+		}
 	}
 	if(isset($_POST['s']) && $_POST['s'] == "y")
 	{

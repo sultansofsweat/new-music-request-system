@@ -143,12 +143,6 @@
 	
 	$name=system_name();
 	write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Obtained setting \"name\"");
-	
-	if(securitycheck() === false)
-	{
-		write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Not holding administrative privileges, exiting");
-		die("<p>You are not an administrator. Please <a href=\"login.php?ref=admin-index\">sign in</a> or <a href=\"index.php\">cancel</a>.</p>");
-	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -176,14 +170,22 @@
     </style>
   </head>
   <body>
+	<?php
+		if(securitycheck() === false)
+		{
+			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Not holding administrative privileges, exiting");
+			die("<p>You are not an administrator. Please <a href=\"login.php?ref=admin-index\">sign in</a> or <a href=\"index.php\">cancel</a>.</p></body></html>");
+		}
+	?>
 	<h1 style="text-align:center; text-decoration:underline;"><?php echo $name; ?>Music Request System-Administration</h1>
 	<p><b>NOTE: this new admin console is still UNDER CONSTRUCTION!</b><br>
 	For anything not located here, please use the <a href="oldadmin.php">old administration page</a>.</p>
+	<p><a href="index.php">Exit Admin Console</a></p>
 	<p><a href="admin-dump.php">Show All System Settings</a><br>
-	<a href="admin-resprev.php">Reset <b>All</b> To Previous Values</a><br>
-	<a href="admin-resdef.php">Reset <b>All</b> To System Defaults</a></p>
-	<p><a href="admin-id.php">System ID</a><br>
-	<a href="admin-sys.php">System Settings</a><br>
+	<!--<a href="admin-resprev.php">Reset <b>All</b> To Previous Values</a>--><span style="text-decoration:line-through;">Reset <b>All</b> To Previous Values</span><br>
+	<!--<a href="admin-resdef.php">Reset <b>All</b> To System Defaults</a>--><span style="text-decoration:line-through;">Reset <b>All</b> To System Defaults</span></p>
+	<p><!--<a href="admin-id.php">System ID</a>--><span style="text-decoration:line-through;">System ID</span><br>
+	<!--<a href="admin-sys.php">System Settings</a>--><span style="text-decoration:line-through;">System Settings</span><br>
 	<a href="password.php">Change system password</a><?php if(password_verify("admin",get_system_password()) === true) { echo " <b>/!\ CONSIDER CHANGING YOUR PASSWORD!</b>"; } ?><br>
 	<a href="security.php">Security Settings</a><br>
 	<a href="copyright.php">Copyright Information</a><br>
@@ -192,9 +194,9 @@
 	<a href="viewerr.php">Error Log</a><br>
 	<a href="viewdep.php">Deprecation Message Log</a><?php if(is_dep_log_blank() !== true) { echo " <b>/!\ NOT BLANK, CHECK AND REPORT MESSAGES!</b>"; } ?><br>
 	<?php if(alt_ses_store() !== false) { echo("<a href=\"purgesess.php\">Clear Session Storage</a>"); } else { echo("<span style=\"text-decoration:line-through;\">Clear Session Storage</span> (not applicable with current settings)"); } ?></p>
-	<p><a href="admin-home.php">Homepage Options</a></p>
-	<p><a href="admin-search.php">Song Search/Select Options</a></p>
-	<p><a href="admin-songs.php">Song Lists</a><br>
+	<p><!--<a href="admin-home.php">Homepage Options</a>--><span style="text-decoration:line-through;">Homepage Options</span></p>
+	<p><!--<a href="admin-search.php">Song Search/Select Options</a>--><span style="text-decoration:line-through;">Song Search/Select Options</span></p>
+	<p><!--<a href="admin-songs.php">Song Lists</a>--><span style="text-decoration:line-through;">Song Lists</span><br>
 	<a href="listadd.php">Add Songs To Main List</a><br>
 	<a href="listimport.php">Import Songs To Main List</a><br>
 	<a href="listedit.php">Edit Songs On Main List</a><br>
@@ -202,18 +204,18 @@
 	<a href="listedit2.php">Edit External List</a><br>
 	<a href="listdel.php">Delete External List</a><br>
 	<a href="listformat.php">Reformat ALL Lists</a></p>
-	<p><a href="admin-reqpost.php">Request Posting Options</a><br>
-	<a href="admin-reqres.php">Request Restrictions</a><br>
-	<a href="admin-reqpswd.php">Request Password</a><br>
+	<p><!--<a href="admin-reqpost.php">Request Posting Options</a>--><span style="text-decoration:line-through;">Request Posting Options</span><br>
+	<!--<a href="admin-reqres.php">Request Restrictions</a>--><span style="text-decoration:line-through;">Request Restrictions</span><br>
+	<!--<a href="admin-reqpswd.php">Request Password</a>--><span style="text-decoration:line-through;">Request Password</span><br>
 	<a href="ruledit.php">System Rules</a><br>
 	<a href="autoopen.php">Automatic Open/Close Options</a><br>
 	<a href="archive.php">Archive Requests</a><br>
 	<a href="delall.php">Delete ALL Requests</a><br>
 	<a href="microwave.php">The Microwave&trade;</a> (rebuild request database)<?php if(verify_request_db() !== true) { echo " <b>/!\ RECOMMENDED!</b>"; } ?></p>
-	<p><a href="admin-ban.php">Banhammer&trade; Options</a></p>
-	<p><a href="admin-api.php">System API Options</a></p>
-	<p><a href="admin-upg.php">System Update Options</a><br>
-	<a href="update-index.php">System Updater</a></p>
+	<p><!--<a href="admin-ban.php">Banhammer&trade; Options</a>--><span style="text-decoration:line-through;">Banhammer&trade; Options</span></p>
+	<p><!--<a href="admin-api.php">System API Options</a>--><span style="text-decoration:line-through;">System API Options</span></p>
+	<p><!--<a href="admin-upg.php">System Update Options</a>--><span style="text-decoration:line-through;">System Update Options</span><br>
+	<a href="upgrade/index.php">System Updater</a></p>
 	<p><a href="index.php">Exit Admin Console</a></p>
   </body>
 </html>

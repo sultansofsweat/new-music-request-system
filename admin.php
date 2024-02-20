@@ -29,6 +29,10 @@
 	}
 ?>
 <?php
+	//This page is deprecated!
+	trigger_error("The page \"admin.php\" has been deprecated and will be removed from a future release!",E_USER_DEPRECATED);
+?>
+<?php
 	//Useful functions
 	
 	//Function for determining if the system password has not been changed
