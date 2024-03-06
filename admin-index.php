@@ -184,7 +184,7 @@
 	<p><a href="admin-dump.php">Show All System Settings</a><br>
 	<!--<a href="admin-resprev.php">Reset <b>All</b> To Previous Values</a>--><span style="text-decoration:line-through;">Reset <b>All</b> To Previous Values</span><br>
 	<!--<a href="admin-resdef.php">Reset <b>All</b> To System Defaults</a>--><span style="text-decoration:line-through;">Reset <b>All</b> To System Defaults</span></p>
-	<p><!--<a href="admin-id.php">System ID</a>--><span style="text-decoration:line-through;">System ID</span><br>
+	<p><a href="admin-id.php">System ID</a><br>
 	<!--<a href="admin-sys.php">System Settings</a>--><span style="text-decoration:line-through;">System Settings</span><br>
 	<a href="password.php">Change system password</a><?php if(password_verify("admin",get_system_password()) === true) { echo " <b>/!\ CONSIDER CHANGING YOUR PASSWORD!</b>"; } ?><br>
 	<a href="security.php">Security Settings</a><br>

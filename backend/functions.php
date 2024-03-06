@@ -594,7 +594,8 @@
 					"mirror" => "http://firealarms.mooo.com/mrs/",
 					"ipundlimit" => 1,
 					"theme" => 0,
-					"autokey" => "");
+					"autokey" => "",
+					"idreq" => 0);
 		if($setting == "RETURN_ALL")
 		{
 			return array_keys($defaults);

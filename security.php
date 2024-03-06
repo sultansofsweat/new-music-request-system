@@ -78,7 +78,112 @@
     </style>
   </head>
   <?php
-	if(is_logging_enabled() === true)
+	set_timezone();
+	write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Visited security page");
+	if(securitycheck() === false)
+	{
+		write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Not holding admin rights, exiting");
+		die("You are not an administrator. <a href=\"login.php?ref=security\">Sign in</a> or <a href=\"index.php\">Cancel</a>.");
+	}
+	$level=get_system_setting("security");
+	write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Got setting \"security\"");
+	$timeout=get_system_setting("timeout");
+	write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Got setting \"timeout\"");
+	$idreq=get_system_setting("idreq");
+	write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Got setting \"idreq\"");
+	
+	if(!empty($_POST['s']))
+	{
+		write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Began submission of new settings");
+		$password="";
+		if(!empty($_POST['password']))
+		{
+			$password=$_POST['password'];
+		}
+		if(!empty($_POST['level']))
+		{
+			$level=min(7,max(0,preg_replace("/[^0-7]/","",$_POST['level'])));
+		}
+		if(!empty($_POST['timeout']))
+		{
+			$timeout=intval(preg_replace("/[^0-9]/","",$_POST['timeout']));
+		}
+		if(isset($_POST['idreq']))
+		{
+			if($_POST['idreq'] == 0)
+			{
+				$idreq=0;
+			}
+			elseif($_POST['idreq'] == 1)
+			{
+				$idreq=1;
+			}
+		}
+		if(password_verify($password,get_system_password()) === true && ($idreq == 0 || get_system_setting("sysid") != ""))
+		{
+			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Password verified successfully");
+			
+			$error=false;
+			$debug=save_system_setting("security",$level);
+			if($debug === false)
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to save security level of $level");
+				$error=true;
+			}
+			else
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Successfully saved security level of $level");
+			}
+			$debug=save_system_setting("timeout",$timeout);
+			if($debug === false)
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to save timeout time of $timeout minutes");
+				$error=true;
+			}
+			else
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Successfully saved timeout time of $timeout minutes");
+			}
+			$debug=save_system_setting("idreq",$idreq);
+			if($debug === false)
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to save setting \"idreq\"");
+				$error=true;
+			}
+			else
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Successfully saved setting \"idreq\"");
+			}
+			
+			if($error === false)
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Saved all settings");
+				if(isset($_SESSION['sradmin']))
+				{
+					$_SESSION['sradmin']="n";
+				}
+				session_destroy();
+				trigger_error("Successfully saved all settings.");
+				trigger_error("As a result of this change, your session information was nuked from orbit and you will need to sign in again.",E_USER_WARNING);
+			}
+			else
+			{
+				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Did not save all settings");
+				trigger_error("Could not save settings. Try to invoke the O'Reilly Factor&trade; and do it live instead.",E_USER_ERROR);
+			}
+		}
+		elseif($idreq == 1 && get_system_setting("sysid") == "")
+		{
+			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Cannot use UID as entropy when it is blank");
+			trigger_error("You selected to use the system UID as part of the authentication mechanism, but the UID is presently blank. Correct this oversight and try again.",E_USER_ERROR);
+		}
+		else
+		{
+			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Assuming invalid password submitted");
+			trigger_error("Invalid password supplied. Correct this oversight and try again.",E_USER_WARNING);
+		}
+	}
+	/*if(is_logging_enabled() === true)
 	{
 		//Logging enabled
 		set_timezone();
@@ -247,18 +352,20 @@
 			$level=get_system_setting("security");
 			$timeout=get_system_setting("timeout");
 		}
-	}
+	}*/
   ?>
   <body>
   <h1 style="text-align:center; text-decoration:underline;"><?php echo $sysname; ?>Music Request System-Change Security Level</h1>
-  <p>There are seven different security levels. As part of its authentication mechanism, the MRS can store any combination of the following:</p>
+  <p>The MRS software has several different layers of verification for admin users, outside of the obvious password used to log in.<br>
+  The first of which is a unique "system ID" string that isn't necessarily cryptographically secure but is reasonably long.<br>
+  The system also features a "timeout" function, which automatically expires sessions after a certain period of inactivity.</p>
+  <p>In addition to these, there are seven different security levels. As part of its authentication mechanism, the MRS can store any combination of the following:</p>
   <ul>
   <li>The user's IP address</li>
   <li>The user agent string of the user's browser</li>
-  <li>A unique "user identifier".</li>
+  <li>A unique "user identifier" (<b>not cryptographically secure!</b>).</li>
   </ul>
   <p>in addition to a "switch" that tells the system you have logged in.<br>
-  The system also features a "timeout" function, which automatically expires sessions after a certain period of inactivity, controllable below.</p>
   <p>Below is a chart of the various security levels, and what they mean.</p>
   <table width="60%" border="1px solid #000000">
   <tr>
@@ -316,8 +423,10 @@
   <th>Yes</th>
   </tr>
   </table>
+  <p>All aspects of the authentication mechanism can be controlled below.</p>
   <form method="post" action="security.php">
   <input type="hidden" name="s" value="y">
+  Use system UID for security: <input type="radio" name="idreq" value="0"<?php if(isset($idreq) && $idreq == 0) { echo(" checked=\"checked\""); } ?>>No | <input type="radio" name="idreq" value="1"<?php if(isset($idreq) && $idreq == 1) { echo(" checked=\"checked\""); } ?>>Yes<br>
   Security level: <select name="level">
   <option value="">Select one</option>
   <option value="0" <?php if(isset($level) && $level == 0) {echo("selected=\"selected\"");} ?>>0</option>
@@ -340,8 +449,8 @@
   <option value="60" <?php if(isset($timeout) && $timeout == 60) {echo("selected=\"selected\"");} ?>>60</option>
   <option value="0" <?php if(isset($timeout) && $timeout == 0) {echo("selected=\"selected\"");} ?>>Indefinite</option>
   </select> minutes<br>
-  Re-enter password: <input type="password" name="pass" required="required"><br>
-  <input type="submit" value="Change"> or <input type="button" value="Cancel" onclick="window.location.href='admin.php'">
+  Re-enter password: <input type="password" name="password" required="required"><br>
+  <input type="submit" value="Change"> or <input type="button" value="Cancel" onclick="window.location.href='admin-index.php'">
   </form>
   </body>
 </html>

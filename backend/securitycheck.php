@@ -111,6 +111,11 @@
 		{
 			return false;
 		}
+		//Check if system ID is required
+		if(get_system_setting("idreq") != 1)
+		{
+			return true;
+		}
 		//Check if system has a sysid
 		$sysid=get_system_id();
 		if($sysid === false || $_SESSION['systemid'] == $sysid)
