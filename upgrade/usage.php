@@ -89,14 +89,17 @@
 	}
 	if(isset($_GET['s']) && $_GET['s'] == "y")
 	{
-		unlink("firstuse.txt");
+		if(file_exists("firstuse.txt"))
+		{
+			unlink("firstuse.txt");
+		}
 		echo("<script type=\"text/javascript\">window.location = \"index.php\"</script>");
 	}
   ?>
   <body>
   <h1 style="text-align:center; text-decoration:underline;"><?php echo $sysname; ?>Music Request System-Using The Upgrader</h1>
   <h2>About The Upgrader</h2>
-  <p>This release of the MRS (2.4) changes the way upgrade packs work, and as a result it uses revamped upgrade scripts that simplify some aspects of installation but require more steps to use.<br>
+  <p>Starting with MRS version 2.4, there were changes to the way upgrade packs work, and as a result MRS versions >= 2.4 use revamped upgrade scripts that simplify some aspects of installation but require more steps to use.<br>
   Notably, the entire process of downloading and installing upgrade packs is automated and intervention isn't possible other than by use of the "sideloader" feature which will be explained later.</p>
   <p>This page attempts to document what you should do before using any of the upgrader components, each of the steps involved, how to "sideload" your own upgrade packs, and what to do after an upgrade.<br>
   <b>NOTE:</b> this page will NOT document how to create your own upgrade pack, just how to sideload one you have. Creating upgrade packs is not for the faint of heart and should only be attempted if you're willing to go the "extra mile" to figure out how to do it yourself.

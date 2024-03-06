@@ -138,7 +138,7 @@
 	{
 		write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Initialized CURL to get latest upgrade pack list");
 		//Set curl options
-		curl_setopt($curl, CURLOPT_URL, get_system_setting("mirror") . "mrs24-upgrade/packages.txt");
+		curl_setopt($curl, CURLOPT_URL, get_system_setting("mirror") . "mrs25-upgrade/packages.txt");
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);

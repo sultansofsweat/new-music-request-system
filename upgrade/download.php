@@ -114,7 +114,7 @@
 		{
 			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Initialized CURL");
 			//Set curl options
-			curl_setopt($curl, CURLOPT_URL, get_system_setting("mirror") . "mrs24-upgrade/$buildcode.zip");
+			curl_setopt($curl, CURLOPT_URL, get_system_setting("mirror") . "mrs25-upgrade/$buildcode.zip");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
 			curl_setopt($curl, CURLOPT_FILE,$dfh);

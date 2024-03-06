@@ -64,7 +64,7 @@
     <meta name="created" content="Wed, 17 Jun 2015 12:33:52 GMT">
     <meta name="description" content="Listening to a live stream? Got a song you have to hear? This is the place to request it!">
 	<link rel="shortcut icon" href="../backend/favicon.ico">
-    <title><?php echo $sysname; ?>Music Request System-Check For Updates</title>
+    <title><?php echo $sysname; ?>Music Request System-Software Updates</title>
     
     <style type="text/css">
     <!--
