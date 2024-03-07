@@ -102,32 +102,32 @@
 						unlink("backend/firstuse.txt");
 					}
 					write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Changed password successfully");
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=0\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=0\"</script>");
 				 }
 				 elseif(password_verify($_POST['old'],base64_decode(file_get_contents("backend/password.txt"))) !== true)
 				 {
 					//Old password given is not correct
 					write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to change password; old password incorrect");
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=1\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=1\"</script>");
 				 }
 				 elseif($_POST['new'] != $_POST['confirm'])
 				 {
 					//Old password given is not correct
 					write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to change password; new passwords did not match");
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=2\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=2\"</script>");
 				 }
 				 else
 				 {
 					//Some other problem happened, assume the file couldn't be opened
 					write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to change the password");
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=3\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=3\"</script>");
 				 }
 			 }
 			 else
 			 {
 				 //Unsafe to proceed
 				write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to change the password");
-				echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=3\"</script>");
+				echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=3\"</script>");
 			 }
 		 }
 		 else
@@ -148,28 +148,28 @@
 					{
 						unlink("backend/firstuse.txt");
 					}
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=0\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=0\"</script>");
 				 }
 				 elseif(password_verify($_POST['old'],base64_decode(file_get_contents("backend/password.txt"))) !== true)
 				 {
 					//Old password given is not correct
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=1\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=1\"</script>");
 				 }
 				 elseif($_POST['new'] != $_POST['confirm'])
 				 {
 					//Old password given is not correct
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=2\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=2\"</script>");
 				 }
 				 else
 				 {
 					//Some other problem happened, assume the file couldn't be opened
-					echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=3\"</script>");
+					echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=3\"</script>");
 				 }
 			 }
 			 else
 			 {
 				 //Unsafe to proceed
-				echo ("<script type=\"text/javascript\">window.location = \"admin.php?pchange=3\"</script>");
+				echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?pchange=3\"</script>");
 			 }
 		 }
 	 }
@@ -201,7 +201,7 @@
   Current password: <input type="password" name="old" required="required"><br>
   New password: <input type="password" name="new" required="required"><br>
   Confirm: <input type="password" name="confirm" required="required"><br>
-  <input type="submit" value="Change"> or <input type="button" value="Cancel" onclick="window.location.href='admin.php'">
+  <input type="submit" value="Change"> or <input type="button" value="Cancel" onclick="window.location.href='admin-index.php'">
   </form>
   </body>
 </html>

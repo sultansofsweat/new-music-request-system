@@ -137,7 +137,7 @@
 		}
 	}
 	//End table output
-	echo ("</tbody>\r\n</table>\r\n<p><a href=\"viewdep.php?clear=doit\">Clear log</a> <b>note: PERMANENT!!!</b> | <a href=\"admin.php\">Exit viewer</a></p>\r\n");
+	echo ("</tbody>\r\n</table>\r\n<p><a href=\"viewdep.php?clear=doit\">Clear log</a> <b>note: PERMANENT!!!</b> | <a href=\"admin-index.php\">Exit viewer</a></p>\r\n");
   ?>
   </body>
 </html>

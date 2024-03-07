@@ -2288,6 +2288,7 @@
 	}
   ?>
   <h1 style="text-align:center; text-decoration:underline;"><?php echo $sysname; ?>MRS-Administration Console</h1>
+  <h4>Please consider using the <a href="admin-index.php">new administration console</a>.</h4>
   <p><a href="#system">System</a><br>
   <a href="#homepage">Homepage</a><br>
   <a href="#search">Song Selection</a><br>

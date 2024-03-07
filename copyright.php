@@ -86,13 +86,13 @@
 		{
 			//Success
 			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Cleared copyright information");
-			echo ("<script type=\"text/javascript\">window.location = \"admin.php?copyset=yes\"</script>");
+			echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?copyset=yes\"</script>");
 		}
 		else
 		{
 			//Failure
 			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to clear copyright information");
-			echo ("<script type=\"text/javascript\">window.location = \"admin.php?copyset=no\"</script>");
+			echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?copyset=no\"</script>");
 		}
 	}
 	elseif(isset($_POST['copyinfo']) && $_POST['copyinfo'] != "" && securitycheck() === true)
@@ -104,13 +104,13 @@
 		{
 			//Success
 			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Wrote new copyright information");
-			echo ("<script type=\"text/javascript\">window.location = \"admin.php?copyset=yes\"</script>");
+			echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?copyset=yes\"</script>");
 		}
 		else
 		{
 			//Failure
 			write_log($_SERVER['REMOTE_ADDR'],date("g:i:s"),"Failed to write new copyright information");
-			echo ("<script type=\"text/javascript\">window.location = \"admin.php?copyset=no\"</script>");
+			echo ("<script type=\"text/javascript\">window.location = \"oldadmin.php?copyset=no\"</script>");
 		}
 	}
 	else
@@ -145,7 +145,7 @@
   <form method="post" action="copyright.php">
   <textarea name="copyinfo" rows="20" cols="100" required="required"><?php echo $copyinfo; ?></textarea><br>
   <input type="checkbox" name="delinfo" value="y">Clear copyright information (irreversible!)<br>
-  <input type="submit" value="Edit copyright info"> or <input type="button" value="Cancel" onclick="window.location.href='admin.php'">
+  <input type="submit" value="Edit copyright info"> or <input type="button" value="Cancel" onclick="window.location.href='admin-index.php'">
   </form>
   </body>
 </html>

@@ -200,6 +200,6 @@
 	?>
 	</tbody>
   </table>
-  <p><a href="viewatt.php?markread=yes">Mark entries as read</a> | <a href="viewatt.php?clear=yes">Clear log</a> | <a href="admin.php">Exit</a></p>
+  <p><a href="viewatt.php?markread=yes">Mark entries as read</a> | <a href="viewatt.php?clear=yes">Clear log</a> | <a href="admin-index.php">Exit</a></p>
   </body>
 </html>
