@@ -194,7 +194,7 @@
 	<a href="viewerr.php">Error Log</a><br>
 	<a href="viewdep.php">Deprecation Message Log</a><?php if(is_dep_log_blank() !== true) { echo " <b>/!\ NOT BLANK, CHECK AND REPORT MESSAGES!</b>"; } ?><br>
 	<?php if(alt_ses_store() !== false) { echo("<a href=\"purgesess.php\">Clear Session Storage</a>"); } else { echo("<span style=\"text-decoration:line-through;\">Clear Session Storage</span> (not applicable with current settings)"); } ?></p>
-	<p><!--<a href="admin-home.php">Homepage Options</a>--><span style="text-decoration:line-through;">Homepage Options</span></p>
+	<p><a href="admin-hp.php">Homepage Options</a></p>
 	<p><!--<a href="admin-search.php">Song Search/Select Options</a>--><span style="text-decoration:line-through;">Song Search/Select Options</span></p>
 	<p><!--<a href="admin-songs.php">Song Lists</a>--><span style="text-decoration:line-through;">Song Lists</span><br>
 	<a href="listadd.php">Add Songs To Main List</a><br>
